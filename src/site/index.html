@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Marsjhefte </title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/pwa_manifest/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/pwa_manifest/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/pwa_manifest/favicon-16x16.png">
+    <link rel="manifest" href="/pwa_manifest/site.webmanifest">
+    <link rel="mask-icon" href="/pwa_manifest/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/pwa_manifest/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/pwa_manifest/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: url('');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="/scripts/install-sw.js"></script>
+    <script type="text/javascript">
+        const bodyEl = document.querySelector('body');
+        const noteRegister = {
+            "marsjhefte": "noter/marsjhefte.png",
+            "Dixieland": "noter/dixie.jpg",
+            "Nu klinger1": "noter/nu_klinger_1.jpg",
+            "Nu klinger2": "noter/nu_klinger_2.jpg",
+            "The bare necessities": "noter/the_bare_necessities.jpg",
+            "Olsenbanden": "noter/olsenbanden.jpg",
+            "Happy": "noter/happy.jpg",
+            "Gammel jegermarsj": "noter/gammel_jegermarsj.jpg",
+            "Norge i rødt hvitt og blått": "noter/norge_i_farger.png",
+            "Ja, vi elsker": "noter/ja_vi_elsker.png",
+            "Sit on my face1": "noter/sit_on_my_face_1.jpg",
+            "Sit on my face2": "noter/sit_on_my_face_2.jpg",
+            "Holmenkollmarsj": "noter/holmenkollmarsj.jpg",
+            "99 Luftballong": "noter/99.jpg",
+            "Pokomon": "noter/pokemon.jpg",
+            "King size": "noter/king_size.jpg",
+            "Current øvelse": "noter/current_ovelse.png",
+            "Bruremarsj": "noter/bruremarsj.jpg",
+            "Bruremarsj fra lødingen": "noter/bruremarsj_lodingen.jpg",
+            "Soul bossa nova 1": "noter/soul.jpg",
+            "Soul bossa nova 2": "noter/soul2.jpg",
+            "Hip to be square": "noter/hip_to_be.jpg",
+            "Sir Duke": "noter/sir_duke.jpg",
+        }
+        const noterIndeksert = [];
+        for (let key in noteRegister) {
+            noterIndeksert.push(noteRegister[key]);
+        }
+
+        let noteNr = -1;
+        neste();
+
+        function settNote(path) {
+            bodyEl.style.backgroundImage = `url(${path})`;
+        }
+
+        function neste() {
+            noteNr = (noteNr + 1) % noterIndeksert.length;
+            settNote(noterIndeksert[noteNr]);
+        }
+
+        function forrige() {
+            noteNr = (noteNr + noterIndeksert.length - 1) % noterIndeksert.length;
+            settNote(noterIndeksert[noteNr]);
+        }
+
+        bodyEl.addEventListener('click', e => {
+            if (e.clientX < window.innerWidth/2) forrige();
+            else neste();
+        });
+    </script>
+</body>
+</html>
